@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: daniscarpa-frontend
-        image: gcr.io/daniscarpa/daniscarpa-frontend:latest
+        image: gcr.io/daniscarpa/frontend:latest
         ports:
         - containerPort: 8000
 ---
