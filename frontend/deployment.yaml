@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: daniscarpa-frontend
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: daniscarpa-frontend
+  template:
+    metadata:
+      labels:
+        app: daniscarpa-frontend
+    spec:
+      containers:
+      - name: daniscarpa-frontend
+        image: 8dfdaa08
+        ports:
+        - containerPort: 8000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: daniscarpa-frontend
+spec:
+  type: ClusterIP
+  ports:
+  - port: 80
+    name: frontend
+  selector:
+    app: daniscarpa-frontend
