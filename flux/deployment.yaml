@@ -24,7 +24,7 @@ spec:
         - --ssh-keygen-dir=/var/fluxd/keygen
         - --git-url=git@github.com:danisc4rp4/daniscarpa-flux
         - --git-branch=master
-        - --git-path=ingress,frontend,backend,monitoring
+        - --git-path=frontend,backend,monitoring,flux
         - --git-label=flux
         - --git-user=danisc4rp4
         - --git-email=danisc4rp4@users.noreply.github.com

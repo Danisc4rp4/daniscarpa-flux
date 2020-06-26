@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: daniscarpa-lb
+  namespace: backend
+  annotations:
+    kubernetes.io/ingress.allow-http: "true"
+    kubernetes.io/ingress.class: "gce"
+spec:
+  rules:
+  - host: api.daniscarpa.com
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: daniscarpa-backend
+          servicePort: backend
