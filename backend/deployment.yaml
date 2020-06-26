@@ -21,6 +21,31 @@ spec:
         env:
         - name: DATABASE_URL
           value: postgresql://daniscarpa:password@localhost:5432/daniscarpa
+        - name: FLASK_APP
+          value: /app/api/api.py
+      - name: cloudsql-proxy
+        image: gcr.io/cloudsql-docker/gce-proxy:1.14
+        command:
+        - /cloud_sql_proxy
+        - -instances=daniscarpa:europe-west6:daniscarpa-db=tcp:5432
+        - -credential_file=/secrets/cloudsql/credentials.json
+        - -verbose=false
+        lifecycle:
+          preStop:
+            exec:
+              command:
+              - /bin/sh
+              - -c
+              - while [ $(netstat -ltn | grep 21080 | wc -l) -eq 1 ]; do sleep 5; done
+        volumeMounts:
+        - name: cloudsql-instance-credentials
+          mountPath: /secrets/cloudsql
+          readOnly: true
+
+      volumes:
+      - name: cloudsql-instance-credentials
+      secret:
+        secretName: cloudsql-instance-credentials
 ---
 apiVersion: v1
 kind: Service
