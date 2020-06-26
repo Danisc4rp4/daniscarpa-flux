@@ -3,7 +3,8 @@ kind: Ingress
 metadata:
   name: daniscarpa-lb
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
+    kubernetes.io/ingress.allow-http: "true"
+    kubernetes.io/ingress.class: "gce"
 spec:
   rules:
   - host: www.daniscarpa.com
@@ -12,8 +13,8 @@ spec:
       - path: /api
         backend:
           serviceName: daniscarpa-backend
-          servicePort: 5000
+          servicePort: backend
       - path: /
         backend:
           serviceName: daniscarpa-frontend
-          servicePort: 3000
+          servicePort: frontend

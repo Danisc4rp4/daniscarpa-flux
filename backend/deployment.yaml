@@ -17,7 +17,8 @@ spec:
       - name: daniscarpa-backend
         image: gcr.io/daniscarpa/backend:latest
         ports:
-        - containerPort: 8000
+        - name: http
+          containerPort: 5000
         env:
         - name: DATABASE_URL
           valueFrom:
@@ -56,9 +57,10 @@ metadata:
   name: daniscarpa-backend
   namespace: backend
 spec:
-  type: ClusterIP
+  type: NodePort
   ports:
-  - port: 80
-    name: backend
+  - name: backend
+    port: 5000
+    targetPort: http
   selector:
     app: daniscarpa-backend
