@@ -44,8 +44,8 @@ spec:
 
       volumes:
       - name: cloudsql-instance-credentials
-      secret:
-        secretName: cloudsql-instance-credentials
+        secret:
+          secretName: cloudsql-instance-credentials
 ---
 apiVersion: v1
 kind: Service
