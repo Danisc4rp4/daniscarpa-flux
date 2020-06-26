@@ -20,7 +20,10 @@ spec:
         - containerPort: 8000
         env:
         - name: DATABASE_URL
-          value: postgresql://localhost:5432/daniscarpa
+          valueFrom:
+            secretKeyRef:
+              name: database-url
+              key: db-url
         - name: FLASK_APP
           value: /app/api/api.py
       - name: cloudsql-proxy
