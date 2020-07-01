@@ -19,8 +19,12 @@ spec:
       - name: daniscarpa-backend
         image: gcr.io/daniscarpa/backend:latest
         ports:
-        - name: http
-          containerPort: 5000
+        - containerPort: 5000
+        readinessProbe:
+          httpGet:
+            path: /time
+            port: 5000
+          initialDelaySeconds: 3
         env:
         - name: DATABASE_URL
           valueFrom:
@@ -52,18 +56,3 @@ spec:
       - name: cloudsql-instance-credentials
         secret:
           secretName: cloudsql-instance-credentials
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: daniscarpa-backend
-  namespace: backend
-spec:
-  type: NodePort
-  ports:
-  - name: backend
-    port: 5000
-    targetPort: http
-    protocol: TCP
-  selector:
-    app: daniscarpa-backend
