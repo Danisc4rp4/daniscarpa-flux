@@ -6,12 +6,12 @@ metadata:
   annotations:
     kubernetes.io/ingress.allow-http: "true"
     kubernetes.io/ingress.class: "gce"
+    kubernetes.io/ingress.global-static-ip-name: "frontend-ip"
 spec:
   rules:
   - host: www.daniscarpa.com
     http:
       paths:
-      - path: /
-        backend:
+      - backend:
           serviceName: daniscarpa-frontend
-          servicePort: frontend
+          servicePort: 3000

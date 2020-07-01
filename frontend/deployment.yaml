@@ -3,6 +3,8 @@ kind: Deployment
 metadata:
   name: daniscarpa-frontend
   namespace: frontend
+  labels:
+    app: daniscarpa-frontend
 spec:
   replicas: 3
   selector:
@@ -17,19 +19,11 @@ spec:
       - name: daniscarpa-frontend
         image: gcr.io/daniscarpa/frontend:latest
         ports:
-        - name: http
-          containerPort: 3000
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: daniscarpa-frontend
-  namespace: frontend
-spec:
-  type: NodePort
-  ports:
-  - name: frontend
-    port: 3000
-    targetPort: http
-  selector:
-    app: daniscarpa-frontend
+        - containerPort: 3000
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 3000
+          initialDelaySeconds: 3
+          periodSeconds: 10
+          timeoutSeconds: 5
