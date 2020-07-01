@@ -6,6 +6,7 @@ metadata:
   annotations:
     kubernetes.io/ingress.allow-http: "true"
     kubernetes.io/ingress.class: "gce"
+    kubernetes.io/ingress.global-static-ip-name: "backend-ip"
 spec:
   rules:
   - host: api.daniscarpa.com
