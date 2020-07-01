@@ -10,3 +10,4 @@ spec:
     port: 3000
   selector:
     app: daniscarpa-frontend
+    
