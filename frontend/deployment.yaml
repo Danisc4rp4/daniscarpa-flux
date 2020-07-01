@@ -27,3 +27,9 @@ spec:
           initialDelaySeconds: 3
           periodSeconds: 10
           timeoutSeconds: 5
+        env:
+        - name: API_URL
+          valueFrom:
+            secretKeyRef:
+              name: api-url
+              key: url
