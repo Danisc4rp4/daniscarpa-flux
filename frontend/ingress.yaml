@@ -15,4 +15,3 @@ spec:
       - backend:
           serviceName: daniscarpa-frontend
           servicePort: 3000
-          
