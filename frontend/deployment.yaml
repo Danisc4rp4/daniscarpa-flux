@@ -18,6 +18,7 @@ spec:
       containers:
       - name: daniscarpa-frontend
         image: gcr.io/daniscarpa/frontend:latest
+        imagePullPolicy: Always
         ports:
         - containerPort: 3000
         readinessProbe:
