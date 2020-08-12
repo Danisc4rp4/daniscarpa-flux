@@ -6,6 +6,11 @@ metadata:
   labels:
     app: daniscarpa-frontend
 spec:
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 20%
+      maxUnavailable: 0
   replicas: 3
   selector:
     matchLabels:
