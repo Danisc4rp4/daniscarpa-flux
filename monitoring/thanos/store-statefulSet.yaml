@@ -19,16 +19,8 @@ spec:
       - args:
         - store
         - --data-dir=/var/thanos/store
-        - --grpc-address=0.0.0.0:10901
-        - --http-address=0.0.0.0:10902
-        - --objstore.config=$(OBJSTORE_CONFIG)
-        env:
-        - name: OBJSTORE_CONFIG
-          valueFrom:
-            secretKeyRef:
-              key: thanos.yaml
-              name: thanos-objectstorage
-        image: quay.io/thanos/thanos:v0.12.0
+        - --objstore.config=/config/thanos.yaml
+        image: quay.io/thanos/thanos:v0.10.1
         livenessProbe:
           failureThreshold: 8
           httpGet:
@@ -54,14 +46,19 @@ spec:
         - mountPath: /var/thanos/store
           name: data
           readOnly: false
+        - name: config
+          mountPath: /config/
+          readOnly: true
       terminationGracePeriodSeconds: 120
-      volumes: []
+      volumes:
+        - name: config
+          secret:
+            defaultMode: 256
+            secretName: thanos-objectstorage
   volumeClaimTemplates:
   - metadata:
       labels:
-        app.kubernetes.io/component: object-store-gateway
-        app.kubernetes.io/instance: thanos-store
-        app.kubernetes.io/name: thanos-store
+        app: thanos-store
       name: data
     spec:
       accessModes:
