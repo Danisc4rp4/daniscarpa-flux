@@ -16,10 +16,11 @@ spec:
     kubernetes.io/os: linux
   podMonitorNamespaceSelector: {}
   podMonitorSelector: {}
-  replicas: 2
+  replicas: 1
   resources:
     requests:
       memory: 100Mi
+      cpu: 10M
   ruleSelector:
     matchLabels:
       prometheus: k8s
