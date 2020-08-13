@@ -1210,3 +1210,11 @@ spec:
       for: 10m
       labels:
         severity: warning
+    - alert: BackendDown-testing
+      expr: up{service="daniscarpa-backend"} == 0
+      for: 5m
+      labels:
+        severity: critical
+      annotations:
+        summary: "Backend down - testing - (instance {{ $labels.instance }})"
+        description: "Backend node down\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"
