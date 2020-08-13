@@ -1,0 +1,9 @@
+apiVersion: networking.gke.io/v1beta2
+kind: ManagedCertificate
+metadata:
+  name: monitoring-cert
+  namespace: monitoring
+spec:
+  domains:
+    - prometheus.daniscarpa.com
+    - grafana.daniscarpa.com

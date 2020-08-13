@@ -7,6 +7,7 @@ metadata:
     kubernetes.io/ingress.allow-http: "true"
     kubernetes.io/ingress.class: "gce"
     kubernetes.io/ingress.global-static-ip-name: "monitoring-ip"
+    networking.gke.io/managed-certificates: monitoring-cert
 spec:
   rules:
   - host: prometheus.daniscarpa.com
@@ -15,3 +16,10 @@ spec:
       - backend:
           serviceName: prometheus-k8s
           servicePort: 9090
+  - host: grafana.daniscarpa.com
+    http:
+      paths:
+      - backend:
+          serviceName: grafana
+          servicePort: 3000
+

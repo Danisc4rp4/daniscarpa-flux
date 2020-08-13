@@ -32,3 +32,11 @@ spec:
   serviceMonitorNamespaceSelector: {}
   serviceMonitorSelector: {}
   version: v2.11.0
+
+
+  thanos:
+    # check the operator that does not add  --cluster pears that gets in conflict with thanos
+    version: v0.10.1
+    objectStorageConfig:
+      key: thanos.yaml
+      name: thanos-objstore-config
