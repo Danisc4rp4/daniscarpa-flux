@@ -3,6 +3,8 @@ kind: Service
 metadata:
   name: daniscarpa-frontend
   namespace: frontend
+  labels:
+    app: daniscarpa-frontend
 spec:
   type: NodePort
   ports:
