@@ -1,0 +1,72 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+ labels:
+   team: devops
+ name: prometheus-k8s-frontend
+ namespace: frontend
+rules:
+ - apiGroups:
+     - ""
+   resources:
+     - services
+     - endpoints
+     - pods
+   verbs:
+     - get
+     - list
+     - watch
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+ labels:
+   team: devops
+ name: prometheus-k8s-frontend
+rules:
+ - apiGroups:
+     - ""
+   resources:
+     - nodes/metrics
+     - services
+     - endpoints
+     - pods
+   verbs:
+     - get
+     - list
+     - watch
+ - nonResourceURLs:
+     - /metrics
+   verbs:
+     - get
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+ labels:
+   team: devops
+ name: prometheus-k8s-frontend
+ namespace: frontend
+roleRef:
+ apiGroup: rbac.authorization.k8s.io
+ kind: Role
+ name: prometheus-k8s-frontend
+subjects:
+ - kind: ServiceAccount
+   name: prometheus-k8s
+   namespace: monitoring
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+ labels:
+   team: devops
+ name: prometheus-k8s-frontend
+roleRef:
+ apiGroup: rbac.authorization.k8s.io
+ kind: ClusterRole
+ name: prometheus-k8s-frontend
+subjects:
+ - kind: ServiceAccount
+   name: prometheus-k8s
+   namespace: monitoring

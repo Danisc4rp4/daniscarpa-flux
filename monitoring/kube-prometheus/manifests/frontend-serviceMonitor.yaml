@@ -1,0 +1,15 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+ labels:
+   app: daniscarpa-frontend
+ name: frontend-service-monitor
+ namespace: frontend
+spec:
+ endpoints:
+ - interval: 30s
+   port: frontend
+   path: /metrics
+ selector:
+   matchLabels:
+     app: daniscarpa-frontend
